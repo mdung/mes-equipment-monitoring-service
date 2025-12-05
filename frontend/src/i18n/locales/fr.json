@@ -1,0 +1,91 @@
+{
+  "common": {
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "export": "Exporter",
+    "import": "Importer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "actions": "Actions",
+    "selectAll": "Tout sélectionner",
+    "deselectAll": "Tout désélectionner",
+    "bulkActions": "Actions en masse",
+    "print": "Imprimer",
+    "noData": "Aucune donnée trouvée",
+    "loading": "Chargement...",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "theme": {
+    "darkMode": "Mode Sombre",
+    "lightMode": "Mode Clair",
+    "toggleTheme": "Changer le thème"
+  },
+  "language": {
+    "language": "Langue",
+    "english": "Anglais",
+    "spanish": "Espagnol",
+    "french": "Français",
+    "german": "Allemand"
+  },
+  "shortcuts": {
+    "title": "Raccourcis Clavier",
+    "search": "Rechercher",
+    "new": "Nouvel élément",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "print": "Imprimer",
+    "export": "Exporter",
+    "toggleTheme": "Basculer le mode sombre",
+    "showShortcuts": "Afficher les raccourcis"
+  },
+  "equipment": {
+    "title": "Gestion des équipements",
+    "name": "Nom",
+    "code": "Code",
+    "location": "Emplacement",
+    "status": "Statut",
+    "addEquipment": "Ajouter un équipement",
+    "editEquipment": "Modifier l'équipement",
+    "deleteEquipment": "Supprimer l'équipement",
+    "searchPlaceholder": "Rechercher des équipements..."
+  },
+  "bulkOperations": {
+    "title": "Opérations en masse",
+    "selected": "{{count}} sélectionné(s)",
+    "deleteSelected": "Supprimer la sélection",
+    "updateSelected": "Mettre à jour la sélection",
+    "exportSelected": "Exporter la sélection",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer {{count}} élément(s) ?"
+  },
+  "importExport": {
+    "import": "Importer des données",
+    "export": "Exporter des données",
+    "importFile": "Importer un fichier",
+    "exportFile": "Exporter un fichier",
+    "format": "Format",
+    "csv": "CSV",
+    "excel": "Excel",
+    "selectFile": "Sélectionner un fichier",
+    "importSuccess": "Données importées avec succès",
+    "importError": "Échec de l'importation des données",
+    "exportSuccess": "Données exportées avec succès"
+  },
+  "filters": {
+    "title": "Filtres avancés",
+    "status": "Statut",
+    "dateRange": "Plage de dates",
+    "from": "De",
+    "to": "À",
+    "clear": "Effacer les filtres",
+    "apply": "Appliquer les filtres"
+  }
+}
+

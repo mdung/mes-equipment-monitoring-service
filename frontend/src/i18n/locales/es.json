@@ -1,0 +1,91 @@
+{
+  "common": {
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "export": "Exportar",
+    "import": "Importar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "actions": "Acciones",
+    "selectAll": "Seleccionar Todo",
+    "deselectAll": "Deseleccionar Todo",
+    "bulkActions": "Acciones Masivas",
+    "print": "Imprimir",
+    "noData": "No se encontraron datos",
+    "loading": "Cargando...",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "theme": {
+    "darkMode": "Modo Oscuro",
+    "lightMode": "Modo Claro",
+    "toggleTheme": "Cambiar Tema"
+  },
+  "language": {
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "french": "Francés",
+    "german": "Alemán"
+  },
+  "shortcuts": {
+    "title": "Atajos de Teclado",
+    "search": "Buscar",
+    "new": "Nuevo Elemento",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "print": "Imprimir",
+    "export": "Exportar",
+    "toggleTheme": "Cambiar Modo Oscuro",
+    "showShortcuts": "Mostrar Atajos"
+  },
+  "equipment": {
+    "title": "Gestión de Equipos",
+    "name": "Nombre",
+    "code": "Código",
+    "location": "Ubicación",
+    "status": "Estado",
+    "addEquipment": "Agregar Equipo",
+    "editEquipment": "Editar Equipo",
+    "deleteEquipment": "Eliminar Equipo",
+    "searchPlaceholder": "Buscar equipos..."
+  },
+  "bulkOperations": {
+    "title": "Operaciones Masivas",
+    "selected": "{{count}} seleccionado(s)",
+    "deleteSelected": "Eliminar Seleccionados",
+    "updateSelected": "Actualizar Seleccionados",
+    "exportSelected": "Exportar Seleccionados",
+    "confirmDelete": "¿Está seguro de que desea eliminar {{count}} elemento(s)?"
+  },
+  "importExport": {
+    "import": "Importar Datos",
+    "export": "Exportar Datos",
+    "importFile": "Importar Archivo",
+    "exportFile": "Exportar Archivo",
+    "format": "Formato",
+    "csv": "CSV",
+    "excel": "Excel",
+    "selectFile": "Seleccionar Archivo",
+    "importSuccess": "Datos importados exitosamente",
+    "importError": "Error al importar datos",
+    "exportSuccess": "Datos exportados exitosamente"
+  },
+  "filters": {
+    "title": "Filtros Avanzados",
+    "status": "Estado",
+    "dateRange": "Rango de Fechas",
+    "from": "Desde",
+    "to": "Hasta",
+    "clear": "Limpiar Filtros",
+    "apply": "Aplicar Filtros"
+  }
+}
+

@@ -1,0 +1,91 @@
+{
+  "common": {
+    "search": "Search",
+    "filter": "Filter",
+    "export": "Export",
+    "import": "Import",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "create": "Create",
+    "update": "Update",
+    "actions": "Actions",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "bulkActions": "Bulk Actions",
+    "print": "Print",
+    "noData": "No data found",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "theme": {
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "toggleTheme": "Toggle Theme"
+  },
+  "language": {
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "french": "French",
+    "german": "German"
+  },
+  "shortcuts": {
+    "title": "Keyboard Shortcuts",
+    "search": "Search",
+    "new": "New Item",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "print": "Print",
+    "export": "Export",
+    "toggleTheme": "Toggle Dark Mode",
+    "showShortcuts": "Show Shortcuts"
+  },
+  "equipment": {
+    "title": "Equipment Management",
+    "name": "Name",
+    "code": "Code",
+    "location": "Location",
+    "status": "Status",
+    "addEquipment": "Add Equipment",
+    "editEquipment": "Edit Equipment",
+    "deleteEquipment": "Delete Equipment",
+    "searchPlaceholder": "Search equipment..."
+  },
+  "bulkOperations": {
+    "title": "Bulk Operations",
+    "selected": "{{count}} selected",
+    "deleteSelected": "Delete Selected",
+    "updateSelected": "Update Selected",
+    "exportSelected": "Export Selected",
+    "confirmDelete": "Are you sure you want to delete {{count}} item(s)?"
+  },
+  "importExport": {
+    "import": "Import Data",
+    "export": "Export Data",
+    "importFile": "Import File",
+    "exportFile": "Export File",
+    "format": "Format",
+    "csv": "CSV",
+    "excel": "Excel",
+    "selectFile": "Select File",
+    "importSuccess": "Data imported successfully",
+    "importError": "Failed to import data",
+    "exportSuccess": "Data exported successfully"
+  },
+  "filters": {
+    "title": "Advanced Filters",
+    "status": "Status",
+    "dateRange": "Date Range",
+    "from": "From",
+    "to": "To",
+    "clear": "Clear Filters",
+    "apply": "Apply Filters"
+  }
+}
+
