@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useEffect } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
+import { I18nProvider } from './context/I18nContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Login from './pages/Login';
@@ -21,6 +22,7 @@ import AuditCompliance from './pages/AuditCompliance';
 import IntegrationAPIs from './pages/IntegrationAPIs';
 import OEEDashboard from './pages/OEEDashboard';
 import Profile from './pages/Profile';
+import Settings from './pages/Settings';
 import Maintenance from './pages/Maintenance';
 import ShiftManagement from './pages/ShiftManagement';
 import QualityManagement from './pages/QualityManagement';
@@ -31,9 +33,14 @@ import DataVisualization from './pages/DataVisualization';
 import AlertNotifications from './components/AlertNotifications';
 import OfflineIndicator from './components/OfflineIndicator';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import KeyboardShortcutsHelp from './components/KeyboardShortcutsHelp';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import websocketService from './services/websocket';
 
-function App() {
+function AppContent() {
+  // Initialize keyboard shortcuts
+  useKeyboardShortcuts();
+
   useEffect(() => {
     // Initialize WebSocket connection
     websocketService.connect(
@@ -47,12 +54,11 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <Router>
-          <AlertNotifications />
-          <OfflineIndicator />
-          <PWAInstallPrompt />
+    <>
+      <AlertNotifications />
+      <OfflineIndicator />
+      <PWAInstallPrompt />
+      <KeyboardShortcutsHelp />
           <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -75,6 +81,7 @@ function App() {
             <Route path="notifications" element={<NotificationCenter />} />
             <Route path="scan" element={<QRScanner />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="reports" element={<Reports />} />
             <Route path="reports-analytics" element={<ReportsAnalytics />} />
             <Route path="users" element={<UserManagement />} />
@@ -82,8 +89,20 @@ function App() {
             <Route path="visualizations" element={<DataVisualization />} />
           </Route>
         </Routes>
-      </Router>
-    </AuthProvider>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <I18nProvider>
+        <AuthProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </AuthProvider>
+      </I18nProvider>
     </ThemeProvider>
   );
 }

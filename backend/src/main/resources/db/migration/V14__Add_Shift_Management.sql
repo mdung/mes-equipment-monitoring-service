@@ -74,3 +74,5 @@ INSERT INTO shifts (name, shift_type, start_time, end_time, description, active)
 ('Day Shift', 'DAY', '07:00:00', '15:00:00', 'Morning shift - 7 AM to 3 PM', true),
 ('Night Shift', 'NIGHT', '23:00:00', '07:00:00', 'Night shift - 11 PM to 7 AM', true),
 ('Swing Shift', 'SWING', '15:00:00', '23:00:00', 'Evening shift - 3 PM to 11 PM', true);
+
+

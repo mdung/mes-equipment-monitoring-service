@@ -5,8 +5,17 @@ import com.mes.repository.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.opencsv.CSVWriter;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -185,7 +197,7 @@ public class ReportService {
 
             // Create header style
             CellStyle headerStyle = workbook.createCellStyle();
-            Font headerFont = workbook.createFont();
+            org.apache.poi.ss.usermodel.Font headerFont = workbook.createFont();
             headerFont.setBold(true);
             headerStyle.setFont(headerFont);
             headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
@@ -282,14 +294,14 @@ public class ReportService {
             document.open();
 
             // Add title
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            com.itextpdf.text.Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
             Paragraph title = new Paragraph(template.getTemplateName(), titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             title.setSpacingAfter(20);
             document.add(title);
 
             // Add date range
-            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
+            com.itextpdf.text.Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
             Paragraph dateRange = new Paragraph(
                     "Period: " + startDate.toLocalDate() + " to " + endDate.toLocalDate(), normalFont);
             dateRange.setAlignment(Element.ALIGN_CENTER);
@@ -309,7 +321,7 @@ public class ReportService {
                     table.setSpacingBefore(10);
 
                     // Add headers
-                    Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
+                    com.itextpdf.text.Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10);
                     for (String header : headers) {
                         PdfPCell cell = new PdfPCell(new Phrase(header, headerFont));
                         cell.setBackgroundColor(BaseColor.LIGHT_GRAY);

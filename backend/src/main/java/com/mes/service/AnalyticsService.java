@@ -119,8 +119,8 @@ public class AnalyticsService {
             report.setDownMinutes(downMinutes);
             report.setMaintenanceMinutes(maintenanceMinutes);
 
-            double utilizationRate = totalMinutes > 0 ? (runningMinutes.doubleValue() / totalMinutes) * 100 : 0;
-            double availabilityRate = totalMinutes > 0 ? ((totalMinutes - downMinutes).doubleValue() / totalMinutes) * 100 : 0;
+            double utilizationRate = totalMinutes > 0 ? ((double) runningMinutes / totalMinutes) * 100 : 0;
+            double availabilityRate = totalMinutes > 0 ? ((double) (totalMinutes - downMinutes) / totalMinutes) * 100 : 0;
 
             report.setUtilizationRate(Math.round(utilizationRate * 100.0) / 100.0);
             report.setAvailabilityRate(Math.round(availabilityRate * 100.0) / 100.0);
@@ -162,8 +162,8 @@ public class AnalyticsService {
                     })
                     .sum();
 
-            double averageMinutes = occurrences > 0 ? totalMinutes.doubleValue() / occurrences : 0;
-            double percentage = totalDowntimeMinutes > 0 ? (totalMinutes.doubleValue() / totalDowntimeMinutes) * 100 : 0;
+            double averageMinutes = occurrences > 0 ? (double) totalMinutes / occurrences : 0;
+            double percentage = totalDowntimeMinutes > 0 ? ((double) totalMinutes / totalDowntimeMinutes) * 100 : 0;
 
             return new DowntimeAnalysisReport(
                 reasonCode,
@@ -194,8 +194,8 @@ public class AnalyticsService {
             int totalRejected = dayChecks.stream().mapToInt(QualityCheck::getRejectedCount).sum();
             int totalUnits = totalPassed + totalRejected;
 
-            double passRate = totalUnits > 0 ? (totalPassed.doubleValue() / totalUnits) * 100 : 0;
-            double rejectRate = totalUnits > 0 ? (totalRejected.doubleValue() / totalUnits) * 100 : 0;
+            double passRate = totalUnits > 0 ? ((double) totalPassed / totalUnits) * 100 : 0;
+            double rejectRate = totalUnits > 0 ? ((double) totalRejected / totalUnits) * 100 : 0;
 
             return new QualityTrendReport(
                 date,

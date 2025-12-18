@@ -1,127 +1,235 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Search, Filter, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, Filter, X, Calendar, ChevronDown } from 'lucide-react';
+import { useTranslation } from '../context/I18nContext';
 
-const AdvancedSearch = ({ onSearch, onFilter, filters = [], placeholder }) => {
+function AdvancedSearch({ onSearch, onFilter, searchFields = [], filterOptions = {} }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchField, setSearchField] = useState('all');
+  const [filters, setFilters] = useState({});
+  const [dateRange, setDateRange] = useState({ from: '', to: '' });
   const { t } = useTranslation();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
-  const [filterValues, setFilterValues] = useState({});
 
-  const handleSearch = (value) => {
-    setSearchTerm(value);
-    if (onSearch) {
-      onSearch(value);
-    }
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.querySelector('[data-search-input]')?.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleSearch = () => {
+    const searchParams = {
+      query: searchQuery,
+      field: searchField,
+      filters: filters,
+      dateRange: dateRange.from || dateRange.to ? dateRange : null
+    };
+    onSearch?.(searchParams);
   };
 
-  const handleFilterChange = (filterKey, value) => {
-    const newFilters = { ...filterValues, [filterKey]: value };
-    setFilterValues(newFilters);
-    if (onFilter) {
-      onFilter(newFilters);
+  const handleFilterChange = (key, value) => {
+    const newFilters = { ...filters };
+    if (value === '' || value === null) {
+      delete newFilters[key];
+    } else {
+      newFilters[key] = value;
     }
+    setFilters(newFilters);
+    onFilter?.(newFilters);
   };
 
   const clearFilters = () => {
-    setFilterValues({});
-    if (onFilter) {
-      onFilter({});
-    }
+    setFilters({});
+    setDateRange({ from: '', to: '' });
+    setSearchQuery('');
+    setSearchField('all');
+    onFilter?.({});
+    onSearch?.({ query: '', field: 'all', filters: {}, dateRange: null });
   };
 
-  const hasActiveFilters = Object.values(filterValues).some(v => v !== '' && v !== null && v !== undefined);
+  const activeFiltersCount = Object.keys(filters).length + (dateRange.from || dateRange.to ? 1 : 0);
 
   return (
-    <div className="space-y-2">
-      <div className="flex gap-2">
+    <div className="relative">
+      {/* Search Bar */}
+      <div className="flex items-center space-x-2">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary dark:text-slate-400" size={18} />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input
             type="text"
-            placeholder={placeholder || t('common.search')}
-            value={searchTerm}
-            onChange={(e) => handleSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+            data-search-input
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            placeholder={t('search.placeholder')}
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
         </div>
-        {filters.length > 0 && (
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className={`px-4 py-2 border dark:border-slate-700 rounded-lg flex items-center gap-2 ${
-              hasActiveFilters
-                ? 'bg-accent text-white border-accent'
-                : 'bg-white dark:bg-slate-800 text-secondary dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
-            }`}
-          >
-            <Filter size={18} />
-            {t('common.filter')}
-            {hasActiveFilters && (
-              <span className="ml-1 px-1.5 py-0.5 bg-white/20 dark:bg-slate-700 rounded text-xs">
-                {Object.values(filterValues).filter(v => v !== '' && v !== null && v !== undefined).length}
-              </span>
-            )}
-          </button>
-        )}
+        
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`flex items-center space-x-2 px-4 py-2 border rounded-lg transition-colors ${
+            isOpen || activeFiltersCount > 0
+              ? 'bg-blue-50 border-blue-300 text-blue-700 dark:bg-blue-900 dark:border-blue-600 dark:text-blue-300'
+              : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300'
+          }`}
+        >
+          <Filter className="w-4 h-4" />
+          <span>{t('search.advanced_search')}</span>
+          {activeFiltersCount > 0 && (
+            <span className="bg-blue-500 text-white text-xs rounded-full px-2 py-1">
+              {activeFiltersCount}
+            </span>
+          )}
+          <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        </button>
       </div>
 
-      {showFilters && filters.length > 0 && (
-        <div className="p-4 bg-slate-50 dark:bg-slate-900 border dark:border-slate-700 rounded-lg space-y-3">
-          <div className="flex items-center justify-between">
-            <h3 className="font-medium text-sm">{t('filters.title')}</h3>
-            {hasActiveFilters && (
-              <button
-                onClick={clearFilters}
-                className="text-xs text-accent hover:underline flex items-center gap-1"
-              >
-                <X size={14} />
-                {t('filters.clear')}
-              </button>
-            )}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {filters.map((filter) => (
-              <div key={filter.key}>
-                <label className="block text-xs font-medium mb-1 text-secondary dark:text-slate-400">
-                  {filter.label}
+      {/* Advanced Search Panel */}
+      {isOpen && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50 p-6">
+          <div className="space-y-4">
+            {/* Search Field Selection */}
+            {searchFields.length > 0 && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {t('search.search_in')}
                 </label>
-                {filter.type === 'select' ? (
+                <select
+                  value={searchField}
+                  onChange={(e) => setSearchField(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                >
+                  <option value="all">All Fields</option>
+                  {searchFields.map((field) => (
+                    <option key={field.value} value={field.value}>
+                      {field.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Date Range */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {t('search.date_range')}
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    {t('search.from')}
+                  </label>
+                  <input
+                    type="date"
+                    value={dateRange.from}
+                    onChange={(e) => setDateRange({ ...dateRange, from: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    {t('search.to')}
+                  </label>
+                  <input
+                    type="date"
+                    value={dateRange.to}
+                    onChange={(e) => setDateRange({ ...dateRange, to: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Dynamic Filters */}
+            {Object.entries(filterOptions).map(([key, options]) => (
+              <div key={key}>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  {options.label}
+                </label>
+                {options.type === 'select' ? (
                   <select
-                    value={filterValues[filter.key] || ''}
-                    onChange={(e) => handleFilterChange(filter.key, e.target.value)}
-                    className="w-full px-3 py-2 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                    value={filters[key] || ''}
+                    onChange={(e) => handleFilterChange(key, e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   >
-                    <option value="">{t('common.selectAll')}</option>
-                    {filter.options?.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
+                    <option value="">All {options.label}</option>
+                    {options.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
                       </option>
                     ))}
                   </select>
-                ) : filter.type === 'date' ? (
-                  <input
-                    type="date"
-                    value={filterValues[filter.key] || ''}
-                    onChange={(e) => handleFilterChange(filter.key, e.target.value)}
-                    className="w-full px-3 py-2 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-                  />
+                ) : options.type === 'multiselect' ? (
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {options.options.map((option) => (
+                      <label key={option.value} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          checked={(filters[key] || []).includes(option.value)}
+                          onChange={(e) => {
+                            const currentValues = filters[key] || [];
+                            const newValues = e.target.checked
+                              ? [...currentValues, option.value]
+                              : currentValues.filter(v => v !== option.value);
+                            handleFilterChange(key, newValues.length > 0 ? newValues : null);
+                          }}
+                          className="mr-2"
+                        />
+                        <span className="text-sm text-gray-700 dark:text-gray-300">
+                          {option.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
                 ) : (
                   <input
-                    type="text"
-                    placeholder={filter.placeholder}
-                    value={filterValues[filter.key] || ''}
-                    onChange={(e) => handleFilterChange(filter.key, e.target.value)}
-                    className="w-full px-3 py-2 border dark:border-slate-700 dark:bg-slate-800 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                    type={options.type || 'text'}
+                    value={filters[key] || ''}
+                    onChange={(e) => handleFilterChange(key, e.target.value)}
+                    placeholder={options.placeholder}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   />
                 )}
               </div>
             ))}
+
+            {/* Action Buttons */}
+            <div className="flex justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+              <button
+                onClick={clearFilters}
+                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                {t('search.clear_filters')}
+              </button>
+              <div className="space-x-2">
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  {t('common.cancel')}
+                </button>
+                <button
+                  onClick={() => {
+                    handleSearch();
+                    setIsOpen(false);
+                  }}
+                  className="px-4 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700"
+                >
+                  {t('search.apply_filters')}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
     </div>
   );
-};
+}
 
 export default AdvancedSearch;
-

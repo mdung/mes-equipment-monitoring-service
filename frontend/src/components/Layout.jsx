@@ -3,7 +3,8 @@ import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Settings, ClipboardList, Menu, Bell, ClipboardCheck, Users, LogOut, User as UserIcon, BarChart3, Package, AlertTriangle, Shield, Link2, Activity, Wrench, Clock, Award, Moon, Sun, Globe, X } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../context/I18nContext';
+import LanguageSelector from './LanguageSelector';
 import KeyboardShortcuts from './KeyboardShortcuts';
 
 const Layout = () => {
@@ -11,9 +12,8 @@ const Layout = () => {
     const navigate = useNavigate();
     const { user, logout, hasRole } = useAuth();
     const { isDark, toggleTheme } = useTheme();
-    const { i18n, t } = useTranslation();
+    const { t } = useTranslation();
     const [showUserMenu, setShowUserMenu] = useState(false);
-    const [showLanguageMenu, setShowLanguageMenu] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
     // Close mobile menu when route changes
@@ -21,36 +21,27 @@ const Layout = () => {
         setShowMobileMenu(false);
     }, [location.pathname]);
 
-    const languages = [
-        { code: 'en', name: t('language.english') },
-        { code: 'es', name: t('language.spanish') },
-        { code: 'fr', name: t('language.french') },
-        { code: 'de', name: t('language.german') },
-    ];
 
-    const changeLanguage = (langCode) => {
-        i18n.changeLanguage(langCode);
-        setShowLanguageMenu(false);
-    };
 
     const navItems = [
-        { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+        { path: '/dashboard', label: t('navigation.dashboard'), icon: LayoutDashboard },
         { path: '/realtime', label: 'Real-Time Monitoring', icon: Activity },
         { path: '/visualizations', label: 'Data Visualization', icon: BarChart3 },
-        { path: '/equipment', label: 'Equipment', icon: Settings },
-        { path: '/orders', label: 'Production Orders', icon: ClipboardList },
-        { path: '/production', label: 'Production Management', icon: Package },
-        { path: '/quality', label: 'Quality Checks', icon: ClipboardCheck },
-        { path: '/quality-management', label: 'Quality Management', icon: Award },
-        { path: '/maintenance', label: 'Maintenance', icon: Wrench },
-        { path: '/shifts', label: 'Shift Management', icon: Clock },
-        { path: '/alerts', label: 'Alert Management', icon: AlertTriangle },
-        { path: '/audit', label: 'Audit & Compliance', icon: Shield },
-        { path: '/integrations', label: 'Integration APIs', icon: Link2 },
-        { path: '/oee', label: 'OEE Dashboard', icon: Activity },
-        { path: '/reports', label: 'Analytics & Reports', icon: BarChart3 },
-        { path: '/reports-analytics', label: 'Reports & Analytics', icon: BarChart3 },
-        { path: '/users', label: 'User Management', icon: Users, adminOnly: true },
+        { path: '/equipment', label: t('navigation.equipment'), icon: Settings },
+        { path: '/orders', label: t('navigation.production_orders'), icon: ClipboardList },
+        { path: '/production', label: t('navigation.production_management'), icon: Package },
+        { path: '/quality', label: t('navigation.quality_checks'), icon: ClipboardCheck },
+        { path: '/quality-management', label: t('navigation.quality_management'), icon: Award },
+        { path: '/maintenance', label: t('navigation.maintenance'), icon: Wrench },
+        { path: '/shifts', label: t('navigation.shift_management'), icon: Clock },
+        { path: '/alerts', label: t('navigation.alert_management'), icon: AlertTriangle },
+        { path: '/audit', label: t('navigation.audit_compliance'), icon: Shield },
+        { path: '/integrations', label: t('navigation.integration_apis'), icon: Link2 },
+        { path: '/oee', label: t('navigation.oee_dashboard'), icon: Activity },
+        { path: '/reports', label: t('navigation.analytics_reports'), icon: BarChart3 },
+        { path: '/reports-analytics', label: t('navigation.reports_analytics'), icon: BarChart3 },
+        { path: '/settings', label: t('navigation.settings'), icon: Settings },
+        { path: '/users', label: t('navigation.user_management'), icon: Users, adminOnly: true },
     ].filter(item => !item.adminOnly || hasRole('ADMIN'));
 
     return (
@@ -105,32 +96,9 @@ const Layout = () => {
                         className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors text-secondary dark:text-slate-300 min-h-[44px]"
                     >
                         {isDark ? <Sun size={18} /> : <Moon size={18} />}
-                        <span className="text-sm">{isDark ? t('theme.lightMode') : t('theme.darkMode')}</span>
+                        <span className="text-sm">{isDark ? t('settings.light_mode') : t('settings.dark_mode')}</span>
                     </button>
-                    <div className="relative">
-                        <button
-                            onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                            className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors text-secondary dark:text-slate-300 min-h-[44px]"
-                        >
-                            <Globe size={18} />
-                            <span className="text-sm flex-1 text-left">{t('language.language')}</span>
-                        </button>
-                        {showLanguageMenu && (
-                            <div className="absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-lg shadow-lg overflow-hidden">
-                                {languages.map((lang) => (
-                                    <button
-                                        key={lang.code}
-                                        onClick={() => changeLanguage(lang.code)}
-                                        className={`w-full px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-sm min-h-[44px] ${
-                                            i18n.language === lang.code ? 'bg-accent/10 text-accent' : ''
-                                        }`}
-                                    >
-                                        {lang.name}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    <LanguageSelector className="w-full" />
                     <div className="relative">
                         <button 
                             onClick={() => setShowUserMenu(!showUserMenu)}
@@ -154,7 +122,7 @@ const Layout = () => {
                                     className="w-full px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-sm dark:text-slate-200 min-h-[44px]"
                                 >
                                     <UserIcon size={16} />
-                                    Profile
+                                    {t('navigation.profile')}
                                 </button>
                                 <button 
                                     onClick={async () => {
@@ -164,7 +132,7 @@ const Layout = () => {
                                     className="w-full px-4 py-3 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-sm text-red-600 dark:text-red-400 min-h-[44px]"
                                 >
                                     <LogOut size={16} />
-                                    Logout
+                                    {t('navigation.logout')}
                                 </button>
                             </div>
                         )}
@@ -202,37 +170,14 @@ const Layout = () => {
                     <button
                         onClick={toggleTheme}
                         className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors text-secondary dark:text-slate-300"
-                        title={isDark ? t('theme.lightMode') : t('theme.darkMode')}
+                        title={isDark ? t('settings.light_mode') : t('settings.dark_mode')}
                     >
                         {isDark ? <Sun size={18} /> : <Moon size={18} />}
-                        <span className="text-sm">{isDark ? t('theme.lightMode') : t('theme.darkMode')}</span>
+                        <span className="text-sm">{isDark ? t('settings.light_mode') : t('settings.dark_mode')}</span>
                     </button>
 
                     {/* Language Selector */}
-                    <div className="relative">
-                        <button
-                            onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                            className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors text-secondary dark:text-slate-300"
-                        >
-                            <Globe size={18} />
-                            <span className="text-sm flex-1 text-left">{t('language.language')}</span>
-                        </button>
-                        {showLanguageMenu && (
-                            <div className="absolute bottom-full left-0 right-0 mb-2 bg-white dark:bg-slate-800 border dark:border-slate-700 rounded-lg shadow-lg overflow-hidden">
-                                {languages.map((lang) => (
-                                    <button
-                                        key={lang.code}
-                                        onClick={() => changeLanguage(lang.code)}
-                                        className={`w-full px-4 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-sm ${
-                                            i18n.language === lang.code ? 'bg-accent/10 text-accent' : ''
-                                        }`}
-                                    >
-                                        {lang.name}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                    <LanguageSelector className="w-full" />
 
                     {/* User Menu */}
                     <div className="relative">
@@ -259,7 +204,7 @@ const Layout = () => {
                                     className="w-full px-4 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-sm dark:text-slate-200"
                                 >
                                     <UserIcon size={16} />
-                                    Profile
+                                    {t('navigation.profile')}
                                 </button>
                                 <button 
                                     onClick={async () => {
@@ -269,7 +214,7 @@ const Layout = () => {
                                     className="w-full px-4 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2 text-sm text-red-600 dark:text-red-400"
                                 >
                                     <LogOut size={16} />
-                                    Logout
+                                    {t('navigation.logout')}
                                 </button>
                             </div>
                         )}

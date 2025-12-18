@@ -75,7 +75,6 @@ public class ComplianceController {
 
     private User getCurrentUser(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        return userService.findByUsername(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        return userService.findByUsername(userDetails.getUsername());
     }
 }

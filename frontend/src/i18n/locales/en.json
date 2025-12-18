@@ -1,4 +1,24 @@
 {
+  "navigation": {
+    "dashboard": "Dashboard",
+    "equipment": "Equipment",
+    "production_orders": "Production Orders",
+    "production_management": "Production Management",
+    "quality_checks": "Quality Checks",
+    "quality_management": "Quality Management",
+    "maintenance": "Maintenance",
+    "shift_management": "Shift Management",
+    "alert_management": "Alert Management",
+    "audit_compliance": "Audit & Compliance",
+    "integration_apis": "Integration APIs",
+    "oee_dashboard": "OEE Dashboard",
+    "analytics_reports": "Analytics & Reports",
+    "reports_analytics": "Reports & Analytics",
+    "settings": "Settings",
+    "user_management": "User Management",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
   "common": {
     "search": "Search",
     "filter": "Filter",
@@ -86,6 +106,55 @@
     "to": "To",
     "clear": "Clear Filters",
     "apply": "Apply Filters"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "advanced_search": "Advanced Search",
+    "search_in": "Search In",
+    "date_range": "Date Range",
+    "from": "From",
+    "to": "To",
+    "clear_filters": "Clear Filters",
+    "apply_filters": "Apply Filters"
+  },
+  "import_export": {
+    "import_data": "Import Data",
+    "export_data": "Export Data",
+    "select_file": "Select File",
+    "file_format": "File Format",
+    "supported_formats": "Supported formats: CSV, Excel",
+    "download_template": "Download Template",
+    "import_success": "Data imported successfully",
+    "import_error": "Failed to import data",
+    "export_success": "Data exported successfully",
+    "export_error": "Failed to export data"
+  },
+  "print": {
+    "print_options": "Print Options",
+    "include_charts": "Include Charts",
+    "include_data": "Include Data Tables",
+    "page_orientation": "Page Orientation",
+    "portrait": "Portrait",
+    "landscape": "Landscape",
+    "print_ready": "Print"
+  },
+  "settings": {
+    "dark_mode": "Dark Mode",
+    "light_mode": "Light Mode"
+  },
+  "shortcuts": {
+    "general": "General",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "search": "Search",
+    "help": "Show Help",
+    "refresh": "Refresh Page",
+    "dashboard": "Go to Dashboard",
+    "equipment": "Go to Equipment",
+    "maintenance": "Go to Maintenance",
+    "quality": "Go to Quality",
+    "reports": "Go to Reports",
+    "notifications": "Go to Notifications"
   }
 }
 

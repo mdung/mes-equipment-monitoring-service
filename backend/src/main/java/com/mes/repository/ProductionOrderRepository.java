@@ -19,7 +19,8 @@ public interface ProductionOrderRepository extends JpaRepository<ProductionOrder
     List<ProductionOrder> findByEquipmentId(Long equipmentId);
     
     @Query("SELECT p FROM ProductionOrder p WHERE p.equipment.id = :equipmentId " +
-           "AND ((p.startDate BETWEEN :start AND :end) OR (p.endDate BETWEEN :start AND :end))")
+           "AND ((p.startTime BETWEEN :start AND :end) OR (p.endTime BETWEEN :start AND :end) " +
+           "OR (p.startTime <= :start AND p.endTime >= :end))")
     List<ProductionOrder> findByEquipmentIdAndStatusInPeriod(@Param("equipmentId") Long equipmentId,
                                                               @Param("start") LocalDateTime start,
                                                               @Param("end") LocalDateTime end);

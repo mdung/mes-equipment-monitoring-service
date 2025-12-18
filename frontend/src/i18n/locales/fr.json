@@ -1,4 +1,24 @@
 {
+  "navigation": {
+    "dashboard": "Tableau de Bord",
+    "equipment": "Équipements",
+    "production_orders": "Ordres de Production",
+    "production_management": "Gestion de Production",
+    "quality_checks": "Contrôles Qualité",
+    "quality_management": "Gestion Qualité",
+    "maintenance": "Maintenance",
+    "shift_management": "Gestion des Équipes",
+    "alert_management": "Gestion des Alertes",
+    "audit_compliance": "Audit et Conformité",
+    "integration_apis": "APIs d'Intégration",
+    "oee_dashboard": "Tableau de Bord OEE",
+    "analytics_reports": "Analyses et Rapports",
+    "reports_analytics": "Rapports et Analyses",
+    "settings": "Paramètres",
+    "user_management": "Gestion des Utilisateurs",
+    "profile": "Profil",
+    "logout": "Déconnexion"
+  },
   "common": {
     "search": "Rechercher",
     "filter": "Filtrer",
@@ -86,6 +106,55 @@
     "to": "À",
     "clear": "Effacer les filtres",
     "apply": "Appliquer les filtres"
+  },
+  "search": {
+    "placeholder": "Rechercher...",
+    "advanced_search": "Recherche Avancée",
+    "search_in": "Rechercher Dans",
+    "date_range": "Plage de Dates",
+    "from": "De",
+    "to": "À",
+    "clear_filters": "Effacer les Filtres",
+    "apply_filters": "Appliquer les Filtres"
+  },
+  "import_export": {
+    "import_data": "Importer des Données",
+    "export_data": "Exporter des Données",
+    "select_file": "Sélectionner un Fichier",
+    "file_format": "Format de Fichier",
+    "supported_formats": "Formats supportés: CSV, Excel",
+    "download_template": "Télécharger le Modèle",
+    "import_success": "Données importées avec succès",
+    "import_error": "Erreur lors de l'importation",
+    "export_success": "Données exportées avec succès",
+    "export_error": "Erreur lors de l'exportation"
+  },
+  "print": {
+    "print_options": "Options d'Impression",
+    "include_charts": "Inclure les Graphiques",
+    "include_data": "Inclure les Tableaux",
+    "page_orientation": "Orientation de Page",
+    "portrait": "Portrait",
+    "landscape": "Paysage",
+    "print_ready": "Imprimer"
+  },
+  "settings": {
+    "dark_mode": "Mode Sombre",
+    "light_mode": "Mode Clair"
+  },
+  "shortcuts": {
+    "general": "Général",
+    "navigation": "Navigation",
+    "actions": "Actions",
+    "search": "Rechercher",
+    "help": "Afficher l'Aide",
+    "refresh": "Actualiser la Page",
+    "dashboard": "Aller au Tableau de Bord",
+    "equipment": "Aller aux Équipements",
+    "maintenance": "Aller à la Maintenance",
+    "quality": "Aller à la Qualité",
+    "reports": "Aller aux Rapports",
+    "notifications": "Aller aux Notifications"
   }
 }
 

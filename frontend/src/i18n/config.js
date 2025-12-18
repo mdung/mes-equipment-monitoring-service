@@ -17,10 +17,12 @@ i18n
       de: { translation: deTranslations },
     },
     fallbackLng: 'en',
-    debug: false,
+    debug: true, // Enable debug to see what's happening
     interpolation: {
       escapeValue: false,
     },
+    // Ensure the language is set to English by default
+    lng: 'en',
   });
 
 export default i18n;

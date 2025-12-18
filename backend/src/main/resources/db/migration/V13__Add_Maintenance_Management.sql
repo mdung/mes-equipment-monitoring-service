@@ -67,6 +67,7 @@ CREATE TABLE maintenance_costs (
     cost_type VARCHAR(50) NOT NULL, -- LABOR, PARTS, EXTERNAL_SERVICE, OTHER
     description VARCHAR(255),
     amount DECIMAL(10, 2) NOT NULL,
+    quantity INTEGER NOT NULL DEFAULT 1, -- Added from V9 migration
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -81,3 +82,5 @@ CREATE INDEX idx_spare_parts_number ON spare_parts(part_number);
 CREATE INDEX idx_spare_parts_stock ON spare_parts(quantity_in_stock);
 CREATE INDEX idx_maintenance_task_parts_task ON maintenance_task_parts(task_id);
 CREATE INDEX idx_maintenance_costs_task ON maintenance_costs(task_id);
+
+

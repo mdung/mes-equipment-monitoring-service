@@ -5,6 +5,10 @@ import './i18n/config'
 import App from './App.jsx'
 import { registerServiceWorker } from './utils/pwa'
 
+if (typeof window !== 'undefined' && typeof window.global === 'undefined') {
+  window.global = window;
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

@@ -1,5 +1,5 @@
 import SockJS from 'sockjs-client';
-import { Stomp } from 'stompjs';
+import Stomp from 'stompjs';
 
 class WebSocketService {
     constructor() {
@@ -56,13 +56,20 @@ class WebSocketService {
     }
 
     disconnect() {
-        if (this.stompClient) {
+        if (this.stompClient && this.stompClient.connected) {
             Object.keys(this.subscriptions).forEach(topic => {
                 this.unsubscribe(topic);
             });
-            this.stompClient.disconnect();
+            try {
+                this.stompClient.disconnect(() => {
+                    this.connected = false;
+                    console.log('WebSocket Disconnected');
+                });
+            } catch (e) {
+                // ignore disconnect errors when not fully connected
+            }
+        } else {
             this.connected = false;
-            console.log('WebSocket Disconnected');
         }
     }
 

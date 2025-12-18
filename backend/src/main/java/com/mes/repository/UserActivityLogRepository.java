@@ -18,7 +18,7 @@ public interface UserActivityLogRepository extends JpaRepository<UserActivityLog
     List<UserActivityLog> findBySessionId(String sessionId);
     List<UserActivityLog> findByStatus(String status);
     
-    @Query("SELECT a FROM UserActivityLog a WHERE a.userId = :userId AND a.timestamp BETWEEN :start AND :end ORDER BY a.timestamp DESC")
+    @Query("SELECT a FROM UserActivityLog a WHERE a.user.id = :userId AND a.timestamp BETWEEN :start AND :end ORDER BY a.timestamp DESC")
     List<UserActivityLog> findUserActivityInRange(@Param("userId") Long userId, @Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
     
     @Query("SELECT a.activityType, COUNT(a) FROM UserActivityLog a WHERE a.timestamp >= :since GROUP BY a.activityType")

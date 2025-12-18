@@ -3,7 +3,7 @@ CREATE TABLE oee_calculation (
     id BIGSERIAL PRIMARY KEY,
     equipment_id BIGINT NOT NULL REFERENCES equipment(id) ON DELETE CASCADE,
     production_order_id BIGINT REFERENCES production_order(id),
-    shift_id BIGINT REFERENCES shifts(id),
+    shift_id BIGINT, -- Will be linked to shifts table when available
     calculation_period_start TIMESTAMP NOT NULL,
     calculation_period_end TIMESTAMP NOT NULL,
     

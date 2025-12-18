@@ -30,7 +30,7 @@ public class ExportService {
 
         // Create header style
         CellStyle headerStyle = workbook.createCellStyle();
-        Font headerFont = workbook.createFont();
+        org.apache.poi.ss.usermodel.Font headerFont = workbook.createFont();
         headerFont.setBold(true);
         headerStyle.setFont(headerFont);
         headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
@@ -118,14 +118,14 @@ public class ExportService {
         document.open();
 
         // Add title
-        Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+        com.itextpdf.text.Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
         Paragraph titleParagraph = new Paragraph(title, titleFont);
         titleParagraph.setAlignment(Element.ALIGN_CENTER);
         titleParagraph.setSpacingAfter(20);
         document.add(titleParagraph);
 
         // Add generation date
-        Font dateFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.GRAY);
+        com.itextpdf.text.Font dateFont = FontFactory.getFont(FontFactory.HELVETICA, 10, BaseColor.GRAY);
         Paragraph dateParagraph = new Paragraph("Generated: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), dateFont);
         dateParagraph.setAlignment(Element.ALIGN_RIGHT);
         dateParagraph.setSpacingAfter(20);
@@ -140,7 +140,7 @@ public class ExportService {
         table.setWidthPercentage(100);
 
         // Add header
-        Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.WHITE);
+        com.itextpdf.text.Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 10, BaseColor.WHITE);
         for (Field field : fields) {
             PdfPCell cell = new PdfPCell(new Phrase(formatFieldName(field.getName()), headerFont));
             cell.setBackgroundColor(BaseColor.DARK_GRAY);
@@ -150,7 +150,7 @@ public class ExportService {
         }
 
         // Add data
-        Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.BLACK);
+        com.itextpdf.text.Font dataFont = FontFactory.getFont(FontFactory.HELVETICA, 9, BaseColor.BLACK);
         for (Object obj : data) {
             for (Field field : fields) {
                 field.setAccessible(true);

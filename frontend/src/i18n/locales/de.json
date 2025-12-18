@@ -1,4 +1,24 @@
 {
+  "navigation": {
+    "dashboard": "Dashboard",
+    "equipment": "Ausrüstung",
+    "production_orders": "Produktionsaufträge",
+    "production_management": "Produktionsmanagement",
+    "quality_checks": "Qualitätsprüfungen",
+    "quality_management": "Qualitätsmanagement",
+    "maintenance": "Wartung",
+    "shift_management": "Schichtmanagement",
+    "alert_management": "Alarmmanagement",
+    "audit_compliance": "Audit und Compliance",
+    "integration_apis": "Integrations-APIs",
+    "oee_dashboard": "OEE Dashboard",
+    "analytics_reports": "Analysen und Berichte",
+    "reports_analytics": "Berichte und Analysen",
+    "settings": "Einstellungen",
+    "user_management": "Benutzerverwaltung",
+    "profile": "Profil",
+    "logout": "Abmelden"
+  },
   "common": {
     "search": "Suchen",
     "filter": "Filtern",
@@ -86,6 +106,55 @@
     "to": "Bis",
     "clear": "Filter löschen",
     "apply": "Filter anwenden"
+  },
+  "search": {
+    "placeholder": "Suchen...",
+    "advanced_search": "Erweiterte Suche",
+    "search_in": "Suchen In",
+    "date_range": "Datumsbereich",
+    "from": "Von",
+    "to": "Bis",
+    "clear_filters": "Filter Löschen",
+    "apply_filters": "Filter Anwenden"
+  },
+  "import_export": {
+    "import_data": "Daten Importieren",
+    "export_data": "Daten Exportieren",
+    "select_file": "Datei Auswählen",
+    "file_format": "Dateiformat",
+    "supported_formats": "Unterstützte Formate: CSV, Excel",
+    "download_template": "Vorlage Herunterladen",
+    "import_success": "Daten erfolgreich importiert",
+    "import_error": "Fehler beim Importieren",
+    "export_success": "Daten erfolgreich exportiert",
+    "export_error": "Fehler beim Exportieren"
+  },
+  "print": {
+    "print_options": "Druckoptionen",
+    "include_charts": "Diagramme Einschließen",
+    "include_data": "Datentabellen Einschließen",
+    "page_orientation": "Seitenausrichtung",
+    "portrait": "Hochformat",
+    "landscape": "Querformat",
+    "print_ready": "Drucken"
+  },
+  "settings": {
+    "dark_mode": "Dunkler Modus",
+    "light_mode": "Heller Modus"
+  },
+  "shortcuts": {
+    "general": "Allgemein",
+    "navigation": "Navigation",
+    "actions": "Aktionen",
+    "search": "Suchen",
+    "help": "Hilfe Anzeigen",
+    "refresh": "Seite Aktualisieren",
+    "dashboard": "Zum Dashboard",
+    "equipment": "Zu Ausrüstung",
+    "maintenance": "Zur Wartung",
+    "quality": "Zur Qualität",
+    "reports": "Zu Berichten",
+    "notifications": "Zu Benachrichtigungen"
   }
 }
 

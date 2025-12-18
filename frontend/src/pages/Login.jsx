@@ -20,7 +20,8 @@ const Login = () => {
             await login(username, password);
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Invalid username or password');
+            const apiMessage = err.response?.data?.message || err.response?.data?.error || '';
+            setError(apiMessage || 'Invalid username or password');
         } finally {
             setLoading(false);
         }
@@ -91,10 +92,10 @@ const Login = () => {
                     <div className="mt-6 p-4 bg-slate-50 rounded-lg">
                         <p className="text-xs text-secondary mb-2 font-semibold">Demo Accounts:</p>
                         <div className="space-y-1 text-xs text-secondary">
-                            <p><strong>Admin:</strong> admin / admin123</p>
-                            <p><strong>Supervisor:</strong> supervisor / super123</p>
-                            <p><strong>Operator:</strong> operator / oper123</p>
-                            <p><strong>Viewer:</strong> viewer / view123</p>
+                            <p><strong>Admin:</strong> admin / password</p>
+                            <p><strong>Supervisor:</strong> supervisor / password</p>
+                            <p><strong>Operator:</strong> operator / password</p>
+                            <p><strong>Viewer:</strong> viewer / password</p>
                         </div>
                     </div>
                 </div>

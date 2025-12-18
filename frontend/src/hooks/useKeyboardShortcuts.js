@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useKeyboardShortcuts = (shortcuts) => {
+export const useKeyboardShortcuts = (shortcuts = []) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       const key = e.key.toLowerCase();

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '../context/I18nContext';
 import { Plus, Edit, Trash2 } from 'lucide-react';
 import api from '../services/api';
 import Modal from '../components/Modal';

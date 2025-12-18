@@ -31,4 +31,19 @@ public class QualityCheck {
             checkTime = LocalDateTime.now();
         }
     }
+
+    public String getStatus() {
+        if (passedCount != null && passedCount > 0 && (rejectedCount == null || rejectedCount == 0)) {
+            return "PASSED";
+        } else if (rejectedCount != null && rejectedCount > 0) {
+            return "FAILED";
+        }
+        return "PENDING";
+    }
+
+    public Integer getSampleSize() {
+        int passed = passedCount != null ? passedCount : 0;
+        int rejected = rejectedCount != null ? rejectedCount : 0;
+        return passed + rejected;
+    }
 }
